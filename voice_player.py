@@ -1,35 +1,26 @@
-import pygame as mp3
+import pygame as wav
 import random
 import time
+import os
 
+wav_path = r"C:\Users\ethyn\OneDrive\Desktop\Trump\mp3_folders_trump"
+all_things = os.listdir(wav_path)
 
-random_mp3s = [
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\believe_me.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\complainer.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\good_cocoa.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\I_Know.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\its_true.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\marshmallows.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\one_sip.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\other_cocoa.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\other_people.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\People_always_say.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\the_best.mp3',
-    r'C:\Users\ethyn\OneDrive\Desktop\Email_Reader\mp3_folders_trump\we_do_right.mp3'
-]
+random_wavs = [f for f in all_things if os.path.isfile(os.path.join(wav_path, f))]
 
-mp3.mixer.init()
+wav.mixer.init()
 
-current_mp3 = None
+current_wav = None
 
 while True:
     try:
-        current_mp3 = random.choice(random_mp3s)
-        mp3.mixer.music.load(current_mp3)
-        mp3.mixer.music.play()
-        while mp3.mixer.music.get_busy():
-            mp3.time.wait(100)
-        print(f'Played {current_mp3}. ')
+        current_wav = random.choice(random_wavs)
+        full_random_path = os.path.join(wav_path, current_wav)
+        wav.mixer.music.load(full_random_path)
+        wav.mixer.music.play()
+        while wav.mixer.music.get_busy():
+            wav.time.wait(100)
+        print(f'Played {current_wav}. ')
         timer = random.randint(4, 30)
         print(f'Waiting for {timer} seconds. ')
         time.sleep(timer)
